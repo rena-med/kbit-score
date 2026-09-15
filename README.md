@@ -18,6 +18,7 @@ The K-BIT score includes the following pre-biopsy variables:
 - Pre-biopsy diagnosis
 - Body mass index (BMI)
 - Charlson Comorbidity Index (CCI)
+
 For detailed scoring criteria, see [SCORING.md](SCORING.md).
 
 ## Score categories
