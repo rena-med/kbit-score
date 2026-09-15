@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-BIT Calculator</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d7dee7;
+      --accent: #1f5d8f;
+      --accent-hover: #184a72;
+      --result-bg: #eef5fb;
+      --warning-bg: #fff4e5;
+      --warning-text: #8a4b08;
+      --very-low-bg: #e8f8ed;
+      --very-low-border: #22c55e;
+      --very-low-text: #166534;
+      --reference-bg: #f1fbdc;
+      --reference-border: #84cc16;
+      --reference-text: #3f6212;
+      --moderate-high-bg: #fde8e8;
+      --moderate-high-border: #ef4444;
+      --moderate-high-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 18px 40px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.9rem;
+    }
+
+    .subtitle {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .intro {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    label,
+    .field-title {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .hint {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .radio-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .unit-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .measurement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .measurement-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .subfield label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 560px) {
+      .measurement-grid,
+      .measurement-grid.three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 18px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--accent-hover);
+    }
+
+    #message {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: var(--warning-bg);
+      color: var(--warning-text);
+    }
+
+    #result {
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      border: 2px solid #bdd4e8;
+      border-radius: 10px;
+      background: var(--result-bg);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    #result.very-low {
+      background: var(--very-low-bg);
+      border-color: var(--very-low-border);
+    }
+
+    #result.reference {
+      background: var(--reference-bg);
+      border-color: var(--reference-border);
+    }
+
+    #result.moderate-high {
+      background: var(--moderate-high-bg);
+      border-color: var(--moderate-high-border);
+    }
+
+    .risk-category {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .very-low .risk-category { color: var(--very-low-text); }
+    .reference .risk-category { color: var(--reference-text); }
+    .moderate-high .risk-category { color: var(--moderate-high-text); }
+
+    .category-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    .category-legend li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.12);
+      flex: 0 0 auto;
+    }
+
+    .legend-very-low { background: #22c55e; }
+    .legend-reference { background: #a3e635; }
+    .legend-moderate-high { background: #ef4444; }
+
+    .category-note {
+      margin: 14px 0 0;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.10);
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .score-label {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .score-value {
+      margin: 2px 0 12px;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .breakdown {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+
+    details.scoring-criteria {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    details.scoring-criteria summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .criteria-table {
+      width: 100%;
+      margin-top: 14px;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .criteria-table th,
+    .criteria-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .criteria-table th:last-child,
+    .criteria-table td:last-child {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .criteria-table td.variable-group {
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    .note {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>K-BIT Calculator</h1>
+      <p class="subtitle"><em>Pre-biopsy Clinical Risk Score for Major Bleeding After Kidney Biopsy</em></p>
+      <p class="intro">The K-BIT score uses pre-biopsy clinical information to stratify patients according to major bleeding risk after kidney biopsy.</p>
+
+      <div class="field">
+        <label for="age">Age (years)</label>
+        <input type="number" id="age" min="0" max="120" step="1" required>
+        
+      </div>
+
+      <div class="field">
+        <label for="diagnosis">Pre-biopsy diagnosis</label>
+        <select id="diagnosis" required>
+          <option value="" selected disabled>Select a diagnosis</option>
+          <option value="3">Acute Kidney Injury</option>
+          <option value="0">Chronic glomerulonephritis</option>
+          <option value="1">IgA Vasculitis</option>
+          <option value="2">Interstitial Nephritis</option>
+          <option value="3">MM, MGUS / Amyloidosis</option>
+          <option value="0">Nephrotic Syndrome</option>
+          <option value="2">Other collagen diseases</option>
+          <option value="2">Other kidney diseases</option>
+          <option value="0">Proteinuria</option>
+          <option value="3">RPGN / AAV</option>
+          <option value="3">SLE</option>
+        </select>
+        <div class="hint">Diagnoses are listed alphabetically.</div>
+      </div>
+
+      <div class="field">
+        <span class="field-title">Height and weight</span>
+        <div class="unit-toggle" role="radiogroup" aria-label="Measurement system">
+          <label class="radio-option">
+            <input type="radio" name="unit-system" value="metric" checked onchange="toggleUnits()">
+            Metric (cm, kg)
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="unit-system" value="imperial" onchange="toggleUnits()">
+            US / Imperial (ft, in, lb)
+          </label>
+        </div>
+
+        <div id="metric-inputs" class="measurement-grid">
+          <div class="subfield">
+            <label for="height-cm">Height (cm)</label>
+            <input type="number" id="height-cm" min="1" step="0.1" inputmode="decimal">
+          </div>
+          <div class="subfield">
+            <label for="weight-kg">Weight (kg)</label>
+            <input type="number" id="weight-kg" min="1" step="0.1" inputmode="decimal">
+          </div>
+        </div>
+
+        <div id="imperial-inputs" class="measurement-grid three hidden">
+          <div class="subfield">
+            <label for="height-ft">Height (ft)</label>
+            <input type="number" id="height-ft" min="1" step="1" inputmode="numeric">
+          </div>
+          <div class="subfield">
+            <label for="height-in">Additional inches</label>
+            <input type="number" id="height-in" min="0" max="11.99" step="0.1" inputmode="decimal">
+          </div>
+          <div class="subfield">
+            <label for="weight-lb">Weight (lb)</label>
+            <input type="number" id="weight-lb" min="1" step="0.1" inputmode="decimal">
+          </div>
+        </div>
+        <div class="hint">BMI is calculated automatically from height and weight.</div>
+      </div>
+
+      <div class="field">
+        <span class="field-title">Charlson Comorbidity Index (CCI)</span>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="cci" value="0" required>
+            CCI = 0
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="cci" value="1">
+            CCI ≥ 1
+          </label>
+        </div>
+      </div>
+
+      <button type="button" onclick="calculateScore()">Calculate K-BIT Score</button>
+
+      <div id="message" role="alert"></div>
+
+      <div id="result" aria-live="polite">
+        <div class="score-label">K-BIT score</div>
+        <div class="score-value" id="score-value"></div>
+        <div class="risk-category" id="risk-category"></div>
+        <ul class="breakdown" id="breakdown"></ul>
+        <ul class="category-legend" aria-label="K-BIT score categories">
+          <li><span class="legend-swatch legend-very-low"></span>Very-Low (0–2)</li>
+          <li><span class="legend-swatch legend-reference"></span>Current-practice-equivalent (3)</li>
+          <li><span class="legend-swatch legend-moderate-high"></span>Moderate-to-High (4–8)</li>
+        </ul>
+        <p class="category-note">Current-practice-equivalent (Score 3): In the simulation, discharge of patients with a K-BIT score of 3 or lower was associated with a major bleeding risk approximately equivalent to that under current practice.</p>
+      </div>
+
+
+      <details class="scoring-criteria">
+        <summary>View scoring criteria</summary>
+        <table class="criteria-table">
+          <thead>
+            <tr><th>Variable</th><th>Category</th><th>Points</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="variable-group" rowspan="3">Age</td><td>&lt;50 years</td><td>0</td></tr>
+            <tr><td>50–69 years</td><td>1</td></tr>
+            <tr><td>70–89 years</td><td>3</td></tr>
+            <tr><td class="variable-group" rowspan="4">Pre-biopsy diagnosis</td><td>Chronic glomerulonephritis / Proteinuria / Nephrotic Syndrome</td><td>0</td></tr>
+            <tr><td>IgA Vasculitis</td><td>1</td></tr>
+            <tr><td>Interstitial Nephritis / Other kidney diseases / Other collagen diseases</td><td>2</td></tr>
+            <tr><td>RPGN / AAV / SLE / MM, MGUS / Amyloidosis / Acute Kidney Injury</td><td>3</td></tr>
+            <tr><td class="variable-group" rowspan="3">BMI</td><td>≥22 kg/m²</td><td>0</td></tr>
+            <tr><td>18.5–&lt;22 kg/m²</td><td>1</td></tr>
+            <tr><td>&lt;18.5 kg/m²</td><td>2</td></tr>
+            <tr><td class="variable-group" rowspan="2">CCI</td><td>0</td><td>0</td></tr>
+            <tr><td>≥1</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <div class="note">
+        K-BIT score categories: Very-Low (0–2), Current-practice-equivalent (3), and Moderate-to-High (4–8). These categories are displayed as score categories and should be interpreted according to the accompanying study/report.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleUnits() {
+      const unitSystem = document.querySelector('input[name="unit-system"]:checked').value;
+      document.getElementById('metric-inputs').classList.toggle('hidden', unitSystem !== 'metric');
+      document.getElementById('imperial-inputs').classList.toggle('hidden', unitSystem !== 'imperial');
+    }
+
+    function calculateBMI() {
+      const unitSystem = document.querySelector('input[name="unit-system"]:checked').value;
+
+      if (unitSystem === 'metric') {
+        const heightCm = Number(document.getElementById('height-cm').value);
+        const weightKg = Number(document.getElementById('weight-kg').value);
+        if (!(heightCm > 0) || !(weightKg > 0)) return null;
+        const heightM = heightCm / 100;
+        return weightKg / (heightM * heightM);
+      }
+
+      const feetRaw = document.getElementById('height-ft').value;
+      const inchesRaw = document.getElementById('height-in').value;
+      const poundsRaw = document.getElementById('weight-lb').value;
+      if (feetRaw === '' || poundsRaw === '') return null;
+
+      const feet = Number(feetRaw);
+      const inches = inchesRaw === '' ? 0 : Number(inchesRaw);
+      const pounds = Number(poundsRaw);
+      if (!(feet >= 0) || !(inches >= 0) || !(inches < 12) || !(pounds > 0)) return null;
+
+      const totalInches = feet * 12 + inches;
+      if (!(totalInches > 0)) return null;
+      return (pounds / (totalInches * totalInches)) * 703;
+    }
+
+    function calculateScore() {
+      const ageInput = document.getElementById('age');
+      const diagnosisInput = document.getElementById('diagnosis');
+      const cciInput = document.querySelector('input[name="cci"]:checked');
+      const messageEl = document.getElementById('message');
+      const resultEl = document.getElementById('result');
+
+      messageEl.style.display = 'none';
+      messageEl.textContent = '';
+      resultEl.style.display = 'none';
+
+      const age = Number(ageInput.value);
+      const bmi = calculateBMI();
+
+      if (ageInput.value === '' || diagnosisInput.value === '' || !cciInput || bmi === null) {
+        messageEl.textContent = 'Please complete all fields before calculating the score.';
+        messageEl.style.display = 'block';
+        return;
+      }
+
+      if (age < 0) {
+        messageEl.textContent = 'Please enter a valid age.';
+        messageEl.style.display = 'block';
+        return;
+      }
+
+      if (age >= 90) {
+        messageEl.textContent = 'The provided final scoring table specifies age categories through the 80s only. Please confirm how patients aged 90 years or older should be scored before using the calculator for this age group.';
+        messageEl.style.display = 'block';
+        return;
+      }
+
+      let agePoints = 0;
+      if (age >= 70) {
+        agePoints = 3;
+      } else if (age >= 50) {
+        agePoints = 1;
+      }
+
+      let bmiPoints = 0;
+      if (bmi < 18.5) {
+        bmiPoints = 2;
+      } else if (bmi < 22) {
+        bmiPoints = 1;
+      }
+
+      const diagnosisPoints = Number(diagnosisInput.value);
+      const diagnosisLabel = diagnosisInput.options[diagnosisInput.selectedIndex].text;
+      const cciPoints = Number(cciInput.value);
+      const totalScore = agePoints + diagnosisPoints + bmiPoints + cciPoints;
+
+      let categoryLabel = '';
+      let categoryClass = '';
+
+      if (totalScore <= 2) {
+        categoryLabel = 'Very-Low';
+        categoryClass = 'very-low';
+      } else if (totalScore === 3) {
+        categoryLabel = 'Current-practice-equivalent';
+        categoryClass = 'reference';
+      } else if (totalScore <= 8) {
+        categoryLabel = 'Moderate-to-High';
+        categoryClass = 'moderate-high';
+      } else {
+        messageEl.textContent = 'The provided category definition covers K-BIT scores from 0 to 8. A score of 9 is not assigned to a category in the provided definition.';
+        messageEl.style.display = 'block';
+      }
+
+      resultEl.className = categoryClass;
+      document.getElementById('score-value').textContent = totalScore + ' points';
+      document.getElementById('risk-category').textContent = categoryLabel ? 'Category: ' + categoryLabel : 'Category: not defined';
+      document.getElementById('breakdown').innerHTML = `
+        <li>Age: ${agePoints} point${agePoints === 1 ? '' : 's'}</li>
+        <li>Pre-biopsy diagnosis (${diagnosisLabel}): ${diagnosisPoints} point${diagnosisPoints === 1 ? '' : 's'}</li>
+        <li>BMI (${bmi.toFixed(1)} kg/m²): ${bmiPoints} point${bmiPoints === 1 ? '' : 's'}</li>
+        <li>CCI: ${cciPoints} point${cciPoints === 1 ? '' : 's'}</li>
+      `;
+
+      resultEl.style.display = 'block';
+    }
+
+    toggleUnits();
+  </script>
+
+</body>
+</html>
