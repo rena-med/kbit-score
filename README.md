@@ -8,7 +8,7 @@ The K-BIT score uses pre-biopsy clinical information to stratify patients accord
 
 The web-based calculator is available at:
 
-https://rsnara162.github.io/kbit-score/
+https://rena-med.github.io/kbit-score/
 
 ## Variables
 
