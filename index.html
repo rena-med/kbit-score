@@ -490,11 +490,17 @@
       const age = Number(ageInput.value);
       const bmi = calculateBMI();
 
-      if (ageInput.value === '' || diagnosisInput.value === '' || !cciInput || bmi === null) {
-        messageEl.textContent = 'Please complete all fields before calculating the score.';
-        messageEl.style.display = 'block';
-        return;
-      }
+      if (ageInput.value === '' || diagnosisInput.value === '' || !cciInput) {
+      messageEl.textContent = 'Please complete all fields before calculating the score.';
+      messageEl.style.display = 'block';
+      return;
+    }
+
+    if (bmi === null) {
+      messageEl.textContent = 'Please enter valid height and weight values.';
+      messageEl.style.display = 'block';
+      return;
+    }
 
       if (age < 18) {
         messageEl.textContent = 'The K-BIT score is intended for patients aged 18 years or older.';
