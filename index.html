@@ -318,7 +318,7 @@
 
       <div class="field">
         <label for="age">Age (years)</label>
-        <input type="number" id="age" min="0" max="120" step="1" required>
+        <input type="number" id="age" min="18" step="1" required>
         
       </div>
 
@@ -421,9 +421,9 @@
             <tr><th>Variable</th><th>Category</th><th>Points</th></tr>
           </thead>
           <tbody>
-            <tr><td class="variable-group" rowspan="3">Age</td><td>&lt;50 years</td><td>0</td></tr>
+            <tr><td class="variable-group" rowspan="3">Age</td><td>18–49 years</td><td>0</td></tr>
             <tr><td>50–69 years</td><td>1</td></tr>
-            <tr><td>70–89 years</td><td>3</td></tr>
+            <tr><td>≥70 years</td><td>3</td></tr>
             <tr><td class="variable-group" rowspan="4">Pre-biopsy diagnosis</td><td>Chronic glomerulonephritis / Proteinuria / Nephrotic Syndrome</td><td>0</td></tr>
             <tr><td>IgA Vasculitis</td><td>1</td></tr>
             <tr><td>Interstitial Nephritis / Other kidney diseases / Other collagen diseases</td><td>2</td></tr>
@@ -496,18 +496,13 @@
         return;
       }
 
-      if (age < 0) {
-        messageEl.textContent = 'Please enter a valid age.';
+      if (age < 18) {
+        messageEl.textContent = 'The K-BIT score is intended for patients aged 18 years or older.';
         messageEl.style.display = 'block';
         return;
       }
 
-      if (age >= 90) {
-        messageEl.textContent = 'The provided final scoring table specifies age categories through the 80s only. Please confirm how patients aged 90 years or older should be scored before using the calculator for this age group.';
-        messageEl.style.display = 'block';
-        return;
-      }
-
+      
       let agePoints = 0;
       if (age >= 70) {
         agePoints = 3;
