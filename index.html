@@ -408,7 +408,7 @@
         <ul class="category-legend" aria-label="K-BIT score categories">
           <li><span class="legend-swatch legend-very-low"></span>Very-Low (0–2)</li>
           <li><span class="legend-swatch legend-reference"></span>Current-practice-equivalent (3)</li>
-          <li><span class="legend-swatch legend-moderate-high"></span>Moderate-to-High (4–8)</li>
+          <li><span class="legend-swatch legend-moderate-high"></span>Moderate-to-High (4–9)</li>
         </ul>
         <p class="category-note">Current-practice-equivalent (Score 3): In the simulation, discharge of patients with a K-BIT score of 3 or lower was associated with a major bleeding risk approximately equivalent to that under current practice.</p>
       </div>
@@ -438,7 +438,7 @@
       </details>
 
       <div class="note">
-        K-BIT score categories: Very-Low (0–2), Current-practice-equivalent (3), and Moderate-to-High (4–8). These categories are displayed as score categories and should be interpreted according to the accompanying study/report.
+        K-BIT score categories: Very-Low (0–2), Current-practice-equivalent (3), and Moderate-to-High (4–9). These categories are displayed as score categories and should be interpreted according to the accompanying study/report.
       </div>
     </section>
   </main>
@@ -531,13 +531,10 @@
       } else if (totalScore === 3) {
         categoryLabel = 'Current-practice-equivalent';
         categoryClass = 'reference';
-      } else if (totalScore <= 8) {
+      } else {
         categoryLabel = 'Moderate-to-High';
         categoryClass = 'moderate-high';
-      } else {
-        messageEl.textContent = 'The provided category definition covers K-BIT scores from 0 to 8. A score of 9 is not assigned to a category in the provided definition.';
-        messageEl.style.display = 'block';
-      }
+      } 
 
       resultEl.className = categoryClass;
       document.getElementById('score-value').textContent = totalScore + ' points';
