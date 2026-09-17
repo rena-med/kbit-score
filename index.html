@@ -145,6 +145,80 @@
       margin: 0;
     }
 
+    .cci-option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    details.cci-info {
+      position: relative;
+    }
+
+    details.cci-info > summary {
+      list-style: none;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent);
+      background: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    details.cci-info > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.cci-info[open] > summary {
+      background: var(--result-bg);
+    }
+
+    .cci-info-box {
+      position: absolute;
+      z-index: 10;
+      top: 30px;
+      left: 0;
+      width: min(520px, calc(100vw - 72px));
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .cci-info-box p {
+      margin: 0 0 10px;
+    }
+
+    .cci-condition-list {
+      columns: 2;
+      column-gap: 28px;
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .cci-condition-list li {
+      break-inside: avoid;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 560px) {
+      .cci-condition-list {
+        columns: 1;
+      }
+    }
+
     button {
       appearance: none;
       border: 0;
@@ -389,10 +463,39 @@
             <input type="radio" name="cci" value="0" required>
             CCI = 0
           </label>
-          <label class="radio-option">
-            <input type="radio" name="cci" value="1">
-            CCI ≥ 1
-          </label>
+
+          <div class="cci-option-row">
+            <label class="radio-option">
+              <input type="radio" name="cci" value="1">
+              CCI ≥ 1
+            </label>
+
+            <details class="cci-info">
+              <summary title="Which conditions count toward CCI?" aria-label="Show conditions that count toward CCI">i</summary>
+              <div class="cci-info-box">
+                <p><strong>Select CCI ≥ 1 if the patient has at least one of the following Charlson comorbidities.</strong> Some conditions carry more than 1 point in the original CCI; for the K-BIT score, any CCI ≥ 1 is treated as 1 point.</p>
+                <ul class="cci-condition-list">
+                  <li>Myocardial infarction</li>
+                  <li>Congestive heart failure</li>
+                  <li>Peripheral vascular disease</li>
+                  <li>Cerebrovascular disease</li>
+                  <li>Dementia</li>
+                  <li>Chronic pulmonary disease</li>
+                  <li>Rheumatologic disease</li>
+                  <li>Peptic ulcer disease</li>
+                  <li>Mild liver disease</li>
+                  <li>Diabetes without chronic complications</li>
+                  <li>Diabetes with chronic complications</li>
+                  <li>Hemiplegia or paraplegia</li>
+                  <li>Renal disease</li>
+                  <li>Any malignancy, including leukemia and lymphoma</li>
+                  <li>Moderate or severe liver disease</li>
+                  <li>Metastatic solid tumour</li>
+                  <li>AIDS/HIV</li>
+                </ul>
+              </div>
+            </details>
+          </div>
         </div>
       </div>
 
