@@ -27,7 +27,7 @@ The K-BIT score is a pre-biopsy clinical risk score for major bleeding after kid
 
 ## Interpretation
 
-In the simulation, discharge of patients with a K-BIT score of 3 or lower was associated with a major bleeding risk approximately equivalent to that under current practice.
+In the simulation, discharge of patients with a K-BIT score of 3 was associated with a major bleeding risk approximately equivalent to that under current practice.
 
 ## Notes
 
