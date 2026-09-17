@@ -99,6 +99,155 @@
       font-size: 0.9rem;
     }
 
+    .field-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 7px;
+    }
+
+    .field-title-row label,
+    .field-title-row .field-title {
+      margin-bottom: 0;
+    }
+
+    .info-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+      padding: 5px 9px;
+      border: 1px solid #a9c4da;
+      border-radius: 999px;
+      background: #f4f9fd;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .info-button:hover {
+      border-color: var(--accent);
+      background: #e7f2fa;
+    }
+
+    .info-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
+    .info-icon {
+      display: inline-grid;
+      width: 18px;
+      height: 18px;
+      place-items: center;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      font-family: Georgia, serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    dialog.info-dialog {
+      width: min(680px, calc(100% - 32px));
+      max-height: min(82vh, 760px);
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 20px 55px rgba(15, 23, 42, 0.28);
+    }
+
+    dialog.info-dialog::backdrop {
+      background: rgba(15, 23, 42, 0.52);
+    }
+
+    .dialog-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dialog-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.35;
+    }
+
+    .dialog-close {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--text);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .dialog-close:hover {
+      background: #f3f4f6;
+    }
+
+    .dialog-body {
+      max-height: calc(82vh - 72px);
+      padding: 18px 22px 22px;
+      overflow-y: auto;
+    }
+
+    .dialog-intro {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .icd-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .icd-table th,
+    .icd-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .icd-table th:first-child,
+    .icd-table td:first-child {
+      width: 92px;
+      white-space: nowrap;
+    }
+
+    .icd-code {
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+      color: #164e75;
+    }
+
+    .cci-list {
+      columns: 2;
+      column-gap: 34px;
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .cci-list li {
+      break-inside: avoid;
+      margin-bottom: 7px;
+    }
+
     .radio-group {
       display: grid;
       gap: 8px;
@@ -135,6 +284,22 @@
       .measurement-grid.three {
         grid-template-columns: 1fr;
       }
+
+      .field-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .cci-list {
+        columns: 1;
+      }
+
+      .dialog-header,
+      .dialog-body {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
     }
 
     .radio-option {
@@ -149,74 +314,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      position: relative;
-    }
-
-    details.cci-info {
-      position: relative;
-    }
-
-    details.cci-info > summary {
-      list-style: none;
-      width: 22px;
-      height: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      color: var(--accent);
-      background: #fff;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    details.cci-info > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    details.cci-info[open] > summary {
-      background: var(--result-bg);
-    }
-
-    .cci-info-box {
-      position: absolute;
-      z-index: 10;
-      top: 30px;
-      left: 0;
-      width: min(520px, calc(100vw - 72px));
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #fff;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      color: var(--text);
-      font-size: 0.9rem;
-      line-height: 1.45;
-    }
-
-    .cci-info-box p {
-      margin: 0 0 10px;
-    }
-
-    .cci-condition-list {
-      columns: 2;
-      column-gap: 28px;
-      margin: 0;
-      padding-left: 20px;
-    }
-
-    .cci-condition-list li {
-      break-inside: avoid;
-      margin-bottom: 4px;
-    }
-
-    @media (max-width: 560px) {
-      .cci-condition-list {
-        columns: 1;
-      }
     }
 
     button {
@@ -397,22 +494,28 @@
       </div>
 
       <div class="field">
-        <label for="diagnosis">Pre-biopsy diagnosis</label>
-        <select id="diagnosis" required>
+        <div class="field-title-row">
+          <label for="diagnosis">Pre-biopsy diagnosis</label>
+          <button type="button" id="diagnosis-info-button" class="info-button" onclick="openDiagnosisInfo()" disabled aria-haspopup="dialog">
+            <span class="info-icon" aria-hidden="true">i</span>
+            ICD-10 codes
+          </button>
+        </div>
+        <select id="diagnosis" required onchange="updateDiagnosisInfoButton()">
           <option value="" selected disabled>Select a diagnosis</option>
-          <option value="3">Acute Kidney Injury</option>
-          <option value="0">Chronic glomerulonephritis</option>
-          <option value="1">IgA Vasculitis</option>
-          <option value="2">Interstitial Nephritis</option>
-          <option value="3">MM, MGUS / Amyloidosis</option>
-          <option value="0">Nephrotic Syndrome</option>
-          <option value="2">Other collagen diseases</option>
-          <option value="2">Other kidney diseases</option>
-          <option value="0">Proteinuria</option>
-          <option value="3">RPGN / AAV</option>
-          <option value="3">SLE</option>
+          <option value="3" data-diagnosis-key="acute-kidney-injury">Acute Kidney Injury</option>
+          <option value="0" data-diagnosis-key="chronic-glomerulonephritis">Chronic glomerulonephritis</option>
+          <option value="1" data-diagnosis-key="iga-vasculitis">IgA Vasculitis</option>
+          <option value="2" data-diagnosis-key="interstitial-nephritis">Interstitial Nephritis</option>
+          <option value="3" data-diagnosis-key="mm-mgus-amyloidosis">MM, MGUS / Amyloidosis</option>
+          <option value="0" data-diagnosis-key="nephrotic-syndrome">Nephrotic Syndrome</option>
+          <option value="2" data-diagnosis-key="other-collagen-diseases">Other collagen diseases</option>
+          <option value="2" data-diagnosis-key="other-kidney-diseases">Other kidney diseases</option>
+          <option value="0" data-diagnosis-key="proteinuria">Proteinuria</option>
+          <option value="3" data-diagnosis-key="rpgn-aav">RPGN / AAV</option>
+          <option value="3" data-diagnosis-key="sle">SLE</option>
         </select>
-        <div class="hint">Diagnoses are listed alphabetically.</div>
+        <div class="hint">Diagnoses are listed alphabetically. Select a diagnosis, then use “ICD-10 codes” to view its definition.</div>
       </div>
 
       <div class="field">
@@ -463,38 +566,15 @@
             <input type="radio" name="cci" value="0" required>
             CCI = 0
           </label>
-
           <div class="cci-option-row">
             <label class="radio-option">
               <input type="radio" name="cci" value="1">
               CCI ≥ 1
             </label>
-
-            <details class="cci-info">
-              <summary title="Which conditions count toward CCI?" aria-label="Show conditions that count toward CCI">i</summary>
-              <div class="cci-info-box">
-                <p><strong>Select CCI ≥ 1 if the patient has at least one of the following Charlson comorbidities.</strong> Some conditions carry more than 1 point in the original CCI; for the K-BIT score, any CCI ≥ 1 is treated as 1 point.</p>
-                <ul class="cci-condition-list">
-                  <li>Myocardial infarction</li>
-                  <li>Congestive heart failure</li>
-                  <li>Peripheral vascular disease</li>
-                  <li>Cerebrovascular disease</li>
-                  <li>Dementia</li>
-                  <li>Chronic pulmonary disease</li>
-                  <li>Rheumatologic disease</li>
-                  <li>Peptic ulcer disease</li>
-                  <li>Mild liver disease</li>
-                  <li>Diabetes without chronic complications</li>
-                  <li>Diabetes with chronic complications</li>
-                  <li>Hemiplegia or paraplegia</li>
-                  <li>Renal disease</li>
-                  <li>Any malignancy, including leukemia and lymphoma</li>
-                  <li>Moderate or severe liver disease</li>
-                  <li>Metastatic solid tumour</li>
-                  <li>AIDS/HIV</li>
-                </ul>
-              </div>
-            </details>
+            <button type="button" class="info-button" onclick="openCciInfo()" aria-haspopup="dialog" aria-label="Show conditions that count toward CCI">
+              <span class="info-icon" aria-hidden="true">i</span>
+              Included conditions
+            </button>
           </div>
         </div>
       </div>
@@ -546,7 +626,248 @@
     </section>
   </main>
 
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="info-dialog-title">
+    <div class="dialog-header">
+      <h2 id="info-dialog-title"></h2>
+      <button type="button" class="dialog-close" onclick="closeInfoDialog()" aria-label="Close information dialog">×</button>
+    </div>
+    <div id="info-dialog-body" class="dialog-body"></div>
+  </dialog>
+
   <script>
+    const diagnosisDefinitions = {
+      'acute-kidney-injury': {
+        label: 'Acute Kidney Injury',
+        rows: [
+          ['N17', 'Acute renal failure'],
+          ['N28.8', 'Other specified disorders of kidney and ureter [Acute kidney injury]']
+        ]
+      },
+      'chronic-glomerulonephritis': {
+        label: 'Chronic glomerulonephritis',
+        rows: [
+          ['N02', 'Recurrent and persistent haematuria'],
+          ['N03', 'Chronic nephritic syndrome'],
+          ['N05', 'Unspecified nephritic syndrome']
+        ]
+      },
+      'iga-vasculitis': {
+        label: 'IgA Vasculitis',
+        rows: [
+          ['D69.0', 'Allergic purpura'],
+          ['N08.2', 'Glomerular disorders in blood diseases and disorders involving the immune mechanism [IgA vasculitis]']
+        ]
+      },
+      'interstitial-nephritis': {
+        label: 'Interstitial Nephritis',
+        rows: [
+          ['N10', 'Acute tubulo-interstitial nephritis'],
+          ['N11', 'Chronic tubulo-interstitial nephritis'],
+          ['N12', 'Tubulo-interstitial nephritis, not specified as acute or chronic']
+        ]
+      },
+      'mm-mgus-amyloidosis': {
+        label: 'MM, MGUS / Amyloidosis',
+        rows: [
+          ['C90.0', 'Multiple myeloma'],
+          ['E85', 'Amyloidosis'],
+          ['N29.8', 'Other disorders of kidney and ureter in other diseases classified elsewhere (including renal amyloidosis)'],
+          ['D47.2', 'Monoclonal gammopathy of undetermined significance (MGUS)']
+        ]
+      },
+      'nephrotic-syndrome': {
+        label: 'Nephrotic Syndrome',
+        rows: [
+          ['N04', 'Nephrotic syndrome']
+        ]
+      },
+      'other-collagen-diseases': {
+        label: 'Other collagen diseases',
+        rows: [
+          ['M30.0', 'Polyarteritis nodosa'],
+          ['M30.2', 'Juvenile polyarteritis'],
+          ['M30.3', 'Mucocutaneous lymph node syndrome [Kawasaki]'],
+          ['M30.8', 'Other conditions related to polyarteritis nodosa'],
+          ['M33.0', 'Juvenile dermatomyositis'],
+          ['M33.1', 'Other dermatomyositis'],
+          ['M33.2', 'Polymyositis'],
+          ['M33.9', 'Dermatopolymyositis, unspecified'],
+          ['M34.0', 'Progressive systemic sclerosis'],
+          ['M34.1', 'CR(E)ST syndrome'],
+          ['M34.2', 'Systemic sclerosis induced by drugs and chemicals'],
+          ['M34.8', 'Other forms of systemic sclerosis'],
+          ['M34.9', 'Systemic sclerosis, unspecified'],
+          ['M35.0', 'Sicca syndrome [Sjögren]'],
+          ['M35.1', 'Other overlap syndromes'],
+          ['M35.2', 'Behçet disease'],
+          ['M35.3', 'Polymyalgia rheumatica'],
+          ['M35.4', 'Diffuse (eosinophilic) fasciitis'],
+          ['M35.5', 'Multifocal fibrosclerosis'],
+          ['M35.6', 'Relapsing panniculitis [Weber-Christian]'],
+          ['M35.7', 'Hypermobility syndrome'],
+          ['M35.8', 'Other specified systemic involvement of connective tissue'],
+          ['M35.9', 'Systemic involvement of connective tissue, unspecified'],
+          ['M36.0', 'Dermato(poly)myositis in neoplastic disease'],
+          ['M36.1', 'Arthropathy in neoplastic disease'],
+          ['M36.2', 'Haemophilic arthropathy'],
+          ['M36.3', 'Arthropathy in other blood disorders'],
+          ['M36.4', 'Arthropathy in hypersensitivity reactions classified elsewhere'],
+          ['M36.8', 'Systemic disorders of connective tissue in other diseases classified elsewhere']
+        ]
+      },
+      'other-kidney-diseases': {
+        label: 'Other kidney diseases',
+        rows: [
+          ['E10.2', 'Type 1 diabetes mellitus with renal complications'],
+          ['E10.7', 'Type 1 diabetes mellitus with multiple complications'],
+          ['E11.2', 'Type 2 diabetes mellitus with renal complications'],
+          ['E11.7', 'Type 2 diabetes mellitus with multiple complications'],
+          ['E12.2', 'Malnutrition-related diabetes mellitus with renal complications'],
+          ['E12.7', 'Malnutrition-related diabetes mellitus with multiple complications'],
+          ['E13.2', 'Other specified diabetes mellitus with renal complications'],
+          ['E13.7', 'Other specified diabetes mellitus with multiple complications'],
+          ['E14.2', 'Unspecified diabetes mellitus with renal complications'],
+          ['E14.7', 'Unspecified diabetes mellitus with multiple complications'],
+          ['I12.0', 'Hypertensive renal disease with renal failure'],
+          ['I12.9', 'Hypertensive renal disease without renal failure'],
+          ['N00', 'Acute nephritic syndrome'],
+          ['N07', 'Hereditary nephropathy, not elsewhere classified'],
+          ['N08.0', 'Glomerular disorders in infectious and parasitic diseases classified elsewhere'],
+          ['N08.1', 'Glomerular disorders in neoplastic diseases'],
+          ['N08.3', 'Glomerular disorders in diabetes mellitus'],
+          ['N08.4', 'Glomerular disorders in other endocrine, nutritional and metabolic diseases'],
+          ['N08.8', 'Glomerular disorders in other diseases classified elsewhere'],
+          ['N14', 'Drug- and heavy-metal-induced tubulo-interstitial and tubular conditions'],
+          ['N15.8', 'Other specified renal tubulo-interstitial diseases'],
+          ['N15.9', 'Renal tubulo-interstitial disease, unspecified'],
+          ['N16', 'Renal tubulo-interstitial disorders in diseases classified elsewhere'],
+          ['N18', 'Chronic kidney disease'],
+          ['N19', 'Unspecified kidney failure'],
+          ['N25', 'Disorders resulting from impaired renal tubular function'],
+          ['N26', 'Unspecified contracted kidney'],
+          ['N28.9', 'Disorder of kidney and ureter, unspecified'],
+          ['R31', 'Unspecified haematuria']
+        ]
+      },
+      'proteinuria': {
+        label: 'Proteinuria',
+        rows: [
+          ['N39.1', 'Persistent proteinuria, unspecified'],
+          ['R80', 'Isolated proteinuria'],
+          ['N06', 'Isolated proteinuria with specified morphological lesion']
+        ]
+      },
+      'rpgn-aav': {
+        label: 'RPGN / AAV',
+        rows: [
+          ['M31.0', 'Hypersensitivity angiitis (including Goodpasture syndrome)'],
+          ['M31.1', 'Thrombotic microangiopathy'],
+          ['M31.3', 'Wegener granulomatosis'],
+          ['M31.4', 'Aortic arch syndrome [Takayasu]'],
+          ['M31.5', 'Giant cell arteritis with polymyalgia rheumatica'],
+          ['M31.6', 'Other giant cell arteritis'],
+          ['M31.7', 'Microscopic polyangiitis'],
+          ['M31.8', 'Other specified necrotizing vasculopathies'],
+          ['M31.9', 'Necrotizing vasculopathy, unspecified'],
+          ['N01', 'Rapidly progressive nephritic syndrome (including anti-glomerular basement membrane disease)'],
+          ['M30.1', 'Polyarteritis with lung involvement [Churg-Strauss]']
+        ]
+      },
+      'sle': {
+        label: 'SLE',
+        rows: [
+          ['M32', 'Systemic lupus erythematosus (SLE)'],
+          ['N08.5', 'Glomerular disorders in systemic connective tissue disorders (including lupus nephritis)']
+        ]
+      }
+    };
+
+    const cciConditions = [
+      'Myocardial infarction',
+      'Congestive heart failure',
+      'Peripheral vascular disease',
+      'Cerebrovascular disease',
+      'Dementia',
+      'Chronic pulmonary disease',
+      'Rheumatologic disease',
+      'Peptic ulcer disease',
+      'Mild liver disease',
+      'Diabetes without chronic complications',
+      'Diabetes with chronic complications',
+      'Hemiplegia or paraplegia',
+      'Renal disease',
+      'Any malignancy, including leukemia and lymphoma',
+      'Moderate or severe liver disease',
+      'Metastatic solid tumour',
+      'AIDS/HIV'
+    ];
+
+    function getSelectedDiagnosisDefinition() {
+      const select = document.getElementById('diagnosis');
+      const option = select.options[select.selectedIndex];
+      return option ? diagnosisDefinitions[option.dataset.diagnosisKey] : null;
+    }
+
+    function updateDiagnosisInfoButton() {
+      const definition = getSelectedDiagnosisDefinition();
+      const button = document.getElementById('diagnosis-info-button');
+      button.disabled = !definition;
+      button.setAttribute(
+        'aria-label',
+        definition ? `View ICD-10 codes for ${definition.label}` : 'Select a diagnosis to view ICD-10 codes'
+      );
+    }
+
+    function openDiagnosisInfo() {
+      const definition = getSelectedDiagnosisDefinition();
+      if (!definition) return;
+
+      const rows = definition.rows.map(([code, disease]) => `
+        <tr>
+          <td><span class="icd-code">${code}</span></td>
+          <td>${disease}</td>
+        </tr>
+      `).join('');
+
+      openInfoDialog(
+        `${definition.label}: ICD-10 codes`,
+        `<p class="dialog-intro">Codes used to define this pre-biopsy diagnostic category in Supplementary Table 1.</p>
+         <table class="icd-table">
+           <thead><tr><th>ICD-10 code</th><th>Disease</th></tr></thead>
+           <tbody>${rows}</tbody>
+         </table>`
+      );
+    }
+
+    function openCciInfo() {
+      const items = cciConditions.map(condition => `<li>${condition}</li>`).join('');
+      openInfoDialog(
+        'Charlson comorbidities',
+        `<p class="dialog-intro">Select CCI ≥ 1 if the patient has at least one of the following Charlson comorbidities. Some conditions carry more than 1 point in the original CCI; for the K-BIT score, any CCI ≥ 1 is treated as 1 point.</p>
+         <ul class="cci-list">${items}</ul>`
+      );
+    }
+
+    function openInfoDialog(title, bodyHtml) {
+      const dialog = document.getElementById('info-dialog');
+      document.getElementById('info-dialog-title').textContent = title;
+      document.getElementById('info-dialog-body').innerHTML = bodyHtml;
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+    }
+
+    function closeInfoDialog() {
+      const dialog = document.getElementById('info-dialog');
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+    }
+
     function toggleUnits() {
       const unitSystem = document.querySelector('input[name="unit-system"]:checked').value;
       document.getElementById('metric-inputs').classList.toggle('hidden', unitSystem !== 'metric');
@@ -658,7 +979,12 @@
       resultEl.style.display = 'block';
     }
 
+    document.getElementById('info-dialog').addEventListener('click', function(event) {
+      if (event.target === this) closeInfoDialog();
+    });
+
     toggleUnits();
+    updateDiagnosisInfoButton();
   </script>
 
 </body>
