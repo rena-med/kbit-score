@@ -29,7 +29,7 @@ For detailed scoring criteria, see [SCORING.md](SCORING.md).
 
 ## Interpretation
 
-In the simulation, discharge of patients with a K-BIT score of 3 or lower was associated with a major bleeding risk approximately equivalent to that under current practice. The risk categories should be interpreted according to the accompanying study/report.
+In the simulation, discharge of patients with a K-BIT score of 3 was associated with a major bleeding risk approximately equivalent to that under current practice. The risk categories should be interpreted according to the accompanying study/report.
 
 ## Intended use
 
