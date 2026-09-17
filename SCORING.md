@@ -23,7 +23,7 @@ The K-BIT score is a pre-biopsy clinical risk score for major bleeding after kid
 
 - **Very-Low:** 0–2
 - **Current-practice-equivalent:** 3
-- **Moderate-to-High:** 4–8
+- **Moderate-to-High:** 4–9
 
 ## Interpretation
 
