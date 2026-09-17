@@ -25,7 +25,7 @@ For detailed scoring criteria, see [SCORING.md](SCORING.md).
 
 - **Very-Low:** 0–2
 - **Current-practice-equivalent:** 3
-- **Moderate-to-High:** 4–8
+- **Moderate-to-High:** 4–9
 
 ## Interpretation
 
