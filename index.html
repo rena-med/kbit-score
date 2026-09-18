@@ -986,11 +986,11 @@ CCI weighting is based on the updated Charlson Comorbidity Index proposed by Qua
 let groupBleedingRate = '';
 
 if (totalScore <= 2) {
-  groupBleedingRate = '0.37%';
+groupBleedingRate = '0.37% (Very-Low group)';
 } else if (totalScore === 3) {
-  groupBleedingRate = '1.52%';
+groupBleedingRate = '1.52% (Current-practice-equivalent)';
 } else {
-  groupBleedingRate = '3.56%';
+groupBleedingRate = '3.56% (Moderate-to-High group)';
 }
 
 document.getElementById('observed-risk').innerHTML =
