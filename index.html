@@ -839,14 +839,14 @@
       );
     }
 
-    function openCciInfo() {
-      const items = cciConditions.map(condition => `<li>${condition}</li>`).join('');
-      openInfoDialog(
-        'Charlson comorbidities',
-        `<p class="dialog-intro">Select CCI ≥ 1 if the patient has at least one of the following Charlson comorbidities. Some conditions carry more than 1 point in the original CCI; for the K-BIT score, any CCI ≥ 1 is treated as 1 point.</p>
-         <ul class="cci-list">${items}</ul>`
-      );
-    }
+function openCciInfo() {
+const items = cciConditions.map(condition => `<li>${condition}</li>`).join('');
+openInfoDialog(
+'Charlson comorbidities',
+`<p class="dialog-intro">Patients with at least one of the following Charlson comorbidities are classified as CCI ≥1 and receive 1 point in the K-BIT score.</p>
+<ul class="cci-list">${items}</ul>`
+);
+}
 
     function openInfoDialog(title, bodyHtml) {
       const dialog = document.getElementById('info-dialog');
