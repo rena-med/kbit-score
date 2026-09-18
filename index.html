@@ -783,16 +783,11 @@
     };
 
     const cciConditions = [
-      'Myocardial infarctionnnn',
       'Congestive heart failure',
-      'Peripheral vascular disease',
-      'Cerebrovascular disease',
       'Dementia',
       'Chronic pulmonary disease',
       'Rheumatologic disease',
-      'Peptic ulcer disease',
       'Mild liver disease',
-      'Diabetes without chronic complications',
       'Diabetes with chronic complications',
       'Hemiplegia or paraplegia',
       'Renal disease',
@@ -843,8 +838,13 @@ function openCciInfo() {
 const items = cciConditions.map(condition => `<li>${condition}</li>`).join('');
 openInfoDialog(
 'Charlson comorbidities',
-`<p class="dialog-intro">Patients with at least one of the following Charlson comorbidities are classified as CCI ≥1 and receive 1 point in the K-BIT score.</p>
-<ul class="cci-list">${items}</ul>`
+`<p class="dialog-intro">
+Patients with at least one of the following comorbidities are classified as CCI ≥1 and receive 1 point in the K-BIT score.
+</p>
+<ul class="cci-list">${items}</ul>
+<p class="dialog-reference">
+Comorbidity definitions are based on the weighted Charlson Comorbidity Index proposed by Quan et al. (Am J Epidemiol. 2011;173:676-682).
+</p>`
 );
 }
 
