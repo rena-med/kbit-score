@@ -983,6 +983,7 @@ CCI weighting is based on the updated Charlson Comorbidity Index proposed by Qua
       resultEl.className = categoryClass;
       document.getElementById('score-value').textContent = totalScore + ' points';
       document.getElementById('risk-category').textContent = categoryLabel ? 'Category: ' + categoryLabel : 'Category: not defined';
+      document.getElementById('observed-risk').textContent = 'Observed major bleeding rate: ' + observedBleedingRate[totalScore];
       document.getElementById('breakdown').innerHTML = `
         <li>Age: ${agePoints} point${agePoints === 1 ? '' : 's'}</li>
         <li>Pre-biopsy diagnosis (${diagnosisLabel}): ${diagnosisPoints} point${diagnosisPoints === 1 ? '' : 's'}</li>
