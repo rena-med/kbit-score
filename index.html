@@ -427,6 +427,24 @@
       font-weight: 800;
     }
 
+    .group-risk {
+  margin: 4px 0 14px;
+  font-size: 1.02rem;
+}
+
+.score-specific-risk {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.score-reference-label {
+  font-weight: 700;
+  color: var(--text);
+}
+
     .breakdown {
       margin: 0;
       padding-left: 20px;
@@ -793,7 +811,7 @@
   6: "5.31%",
   7: "7.40%",
   8: "5.15%",
-  9: "N/A"
+  9: null
 };
     
     const cciConditions = [
@@ -986,22 +1004,42 @@ CCI weighting is based on the updated Charlson Comorbidity Index proposed by Qua
 let groupBleedingRate = '';
 
 if (totalScore <= 2) {
-groupBleedingRate = '0.37% (Very-Low group)';
+groupBleedingRate = '0.37% ';
 } else if (totalScore === 3) {
-groupBleedingRate = '1.52% (Current-practice-equivalent)';
+groupBleedingRate = '1.52% ';
 } else {
-groupBleedingRate = '3.56% (Moderate-to-High group)';
+groupBleedingRate = '3.56% ';
+}
+
+let scoreSpecificRiskText = '';
+
+if (observedBleedingRate[totalScore] === null) {
+  scoreSpecificRiskText =
+    'Observed major bleeding rate among patients with a score of ' +
+    totalScore +
+    ': <strong>Not estimable</strong><br>' +
+    '<span class="hint">' +
+    'A score-specific bleeding rate could not be estimated because no patients in the study cohort had a K-BIT score of 9.' +
+    '</span>';
+} else {
+  scoreSpecificRiskText =
+    'Observed major bleeding rate among patients with a score of ' +
+    totalScore +
+    ': <strong>' +
+    observedBleedingRate[totalScore] +
+    '</strong>';
 }
 
 document.getElementById('observed-risk').innerHTML =
-  'Observed major bleeding rate (score ' +
-  totalScore +
-  '): <strong>' +
-  observedBleedingRate[totalScore] +
-  '</strong><br>' +
-  'Risk-group bleeding rate: <strong>' +
+  '<div class="group-risk">' +
+  'Observed major bleeding rate for this risk category: <strong>' +
   groupBleedingRate +
-'</strong><br><br>';
+  '</strong>' +
+  '</div>' +
+  '<div class="score-specific-risk">' +
+  '<span class="score-reference-label">Study cohort reference</span><br>' +
+  scoreSpecificRiskText +
+  '</div>';
 
       document.getElementById('breakdown').innerHTML = `
         <li>Age: ${agePoints} point${agePoints === 1 ? '' : 's'}</li>
